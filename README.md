@@ -1,8 +1,6 @@
 # Limiter
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/limiter`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem implements a simple mechanism to throttle or rate-limit operations in Ruby.
 
 ## Installation
 
@@ -22,7 +20,57 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Basic Usage
+
+To rate limit calling an instance method, a mixin is provided. Simply specify the method to me limited, and the maximum
+rate that the method can be called. This rate is (by default) a number of requests per minute.
+
+``` ruby
+class Widget
+  extend Limiter::Mixin
+
+  # limit the rate we can call tick to 300 times per minute
+  # when the rate has been exceeded, a call to tick will block until the rate limit would not be exceeded
+  limit_method :tick, rate: 300
+
+  ...
+end
+```
+
+To specify the rate in terms of an interval shorter (or longer) than 1 minute, an optional `interval` parameter can be
+provided to specify the throttling period in seconds.
+
+``` ruby
+class Widget
+  extend Limiter::Mixin
+
+  # limit the rate we can call tick to 5 times per second
+  # when the rate has been exceeded, a call to tick will block until the rate limit would not be exceeded
+  limit_method :tick, rate: 5, interval: 1
+
+  ...
+end
+```
+
+### Advanced Usage
+
+In cases where the mixin is not appropriate the `RateQueue` class can be used directly. As in the mixin examples above,
+the `interval` parameter is optional (and defaults to 1 minute).
+
+``` ruby
+class Widget
+  def initialize
+    # create a rate-limited queue which allows 10000 operations per hour
+    @queue = RateQueue.new(10000, interval: 3600)
+  end
+
+  def tick
+    # this operation will block until less than 10000 shift calls have been made within the last hour
+    @queue.shift
+    # do something
+  end
+end
+```
 
 ## Development
 
@@ -32,7 +80,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/sbfaulkner/limiter.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Shopify/limiter.
 
 ## License
 
