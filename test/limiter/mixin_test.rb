@@ -4,6 +4,9 @@ require 'test_helper'
 
 module Limiter
   class MixinTest < Minitest::Test
+    include FakeSleep
+    include AssertElapsed
+
     COUNT = 50
     RATE = 1
     INTERVAL = 1
@@ -26,34 +29,23 @@ module Limiter
 
     def setup
       super
-      RateQueue.send(:define_method, :sleep) { |i| Timecop.travel(Time.now + i) }
-    end
-
-    def teardown
-      RateQueue.send(:remove_method, :sleep)
-      super
+      @object = MixinTestClass.new
     end
 
     def test_method_is_rate_limited
-      object = MixinTestClass.new
-
-      start = Time.now
-
-      COUNT.times do
-        object.tick
+      assert_elapsed(COUNT.to_f / RATE - 1) do
+        COUNT.times do
+          @object.tick
+        end
       end
-
-      assert_equal (start.to_i + (COUNT / RATE) - 1).to_i, Time.now.to_i
     end
 
     def test_original_method_is_called
-      object = MixinTestClass.new
-
       COUNT.times do
-        object.tick
+        @object.tick
       end
 
-      assert_equal COUNT, object.ticks
+      assert_equal COUNT, @object.ticks
     end
   end
 end
