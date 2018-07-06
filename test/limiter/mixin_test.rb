@@ -22,8 +22,8 @@ module Limiter
         @ticks = 0
       end
 
-      def tick
-        @ticks += 1
+      def tick(count = 1)
+        @ticks += count
       end
     end
 
@@ -46,6 +46,11 @@ module Limiter
       end
 
       assert_equal COUNT, @object.ticks
+    end
+
+    def test_arguments_are_passed
+      @object.tick 123
+      assert_equal 123, @object.ticks
     end
   end
 end

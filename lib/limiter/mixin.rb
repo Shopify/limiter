@@ -6,9 +6,9 @@ module Limiter
       queue = RateQueue.new(rate, interval: interval)
 
       mixin = Module.new do
-        define_method(method) do
+        define_method(method) do |*args|
           queue.shift
-          super()
+          super(*args)
         end
       end
 
