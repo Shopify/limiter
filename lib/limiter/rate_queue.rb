@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Limiter
   class RateQueue
     EPOCH = Time.at(0)

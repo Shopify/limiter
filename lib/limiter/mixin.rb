@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Limiter
   module Mixin
     def limit_method(method, rate:, interval: 60)
