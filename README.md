@@ -1,4 +1,4 @@
-# Limiter
+# Limiter [![Build Status](https://travis-ci.org/Shopify/limiter.svg?branch=master)](https://travis-ci.org/Shopify/limiter)
 
 This gem implements a simple mechanism to throttle or rate-limit operations in Ruby.
 
