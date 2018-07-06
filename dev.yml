@@ -1,0 +1,10 @@
+# dev.yml - for internal shopify tooling
+
+name: limiter
+
+up:
+  - ruby: 2.4.4
+  - bundler
+
+commands:
+  test: bin/rake test
