@@ -1,0 +1,24 @@
+PATH
+  remote: .
+  specs:
+    limiter (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.10.1)
+    rake (10.5.0)
+    timecop (0.8.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.16)
+  limiter!
+  minitest (~> 5.0)
+  rake (~> 10.0)
+  timecop (~> 0.8.0)
+
+BUNDLED WITH
+   1.16.1

@@ -1,5 +1,3 @@
-require "limiter/version"
-
-module Limiter
-  # Your code goes here...
-end
+require 'limiter/mixin'
+require 'limiter/rate_queue'
+require 'limiter/version'
