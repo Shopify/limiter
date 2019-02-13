@@ -7,7 +7,7 @@ This gem implements a simple mechanism to throttle or rate-limit operations in R
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'limiter'
+gem 'ruby-limiter'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install limiter
+    $ gem install ruby-limiter
 
 ## Usage
 
