@@ -24,7 +24,7 @@ module Limiter
     private
 
     def now
-      Time.now
+      Process.clock_gettime(Process::CLOCK_MONOTONIC)
     end
   end
 end

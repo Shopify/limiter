@@ -2,7 +2,7 @@
 
 module Limiter
   class RateQueue
-    EPOCH = Time.at(0)
+    EPOCH = 0.0
 
     def initialize(size, interval: 60)
       @size = size
