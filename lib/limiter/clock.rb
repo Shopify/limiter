@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'singleton'
+require 'forwardable'
 
 module Limiter
   class Clock
