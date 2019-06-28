@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ### Basic Usage
 
-To rate limit calling an instance method, a mixin is provided. Simply specify the method to me limited, and the maximum
+To rate limit calling an instance method, a mixin is provided. Simply specify the method to be limited, and the maximum
 rate that the method can be called. This rate is (by default) a number of requests per minute.
 
 ``` ruby
