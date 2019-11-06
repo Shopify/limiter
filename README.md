@@ -61,7 +61,7 @@ the `interval` parameter is optional (and defaults to 1 minute).
 class Widget
   def initialize
     # create a rate-limited queue which allows 10000 operations per hour
-    @queue = RateQueue.new(10000, interval: 3600)
+    @queue = Limiter::RateQueue.new(10000, interval: 3600)
   end
 
   def tick
