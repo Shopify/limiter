@@ -8,23 +8,13 @@ module Limiter
     include Singleton
 
     extend SingleForwardable
-    def_single_delegators :instance, :skip, :time
+    def_single_delegators :instance, :sleep, :time
 
-    def initialize
-      @offset = 0
-    end
-
-    def skip(interval)
-      @offset += interval
+    def sleep(interval)
+      Kernel.sleep(interval)
     end
 
     def time
-      now + @offset
-    end
-
-    private
-
-    def now
       Process.clock_gettime(Process::CLOCK_MONOTONIC)
     end
   end

@@ -4,27 +4,30 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'limiter'
 
 require 'minitest/autorun'
+require 'mocha/minitest'
 
 module Limiter
-  module FakeSleep
-    def setup
-      super
-      RateQueue.send(:define_method, :sleep) { |i| Clock.skip(i) }
+  class FakeClock < Clock
+    def initialize
+      @offset = 0
     end
 
-    def teardown
-      RateQueue.send(:remove_method, :sleep)
-      super
+    def sleep(interval)
+      @offset += interval
+    end
+
+    def time
+      super + @offset
     end
   end
 
   module AssertElapsed
     def assert_elapsed(interval)
-      started_at = Clock.time
+      started_at = FakeClock.time
 
       yield
 
-      completed_at = Clock.time
+      completed_at = FakeClock.time
 
       assert_in_delta started_at + interval, completed_at, 1.1
     end

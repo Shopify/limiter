@@ -4,7 +4,6 @@ require 'test_helper'
 
 module Limiter
   class RateQueueTest < Minitest::Test
-    include FakeSleep
     include AssertElapsed
 
     COUNT = 50
@@ -14,6 +13,7 @@ module Limiter
     def setup
       super
       @queue = RateQueue.new(RATE, interval: INTERVAL)
+      @queue.stubs(:clock).returns(FakeClock)
     end
 
     def test_shift_is_rate_limited
