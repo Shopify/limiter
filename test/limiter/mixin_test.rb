@@ -4,7 +4,6 @@ require 'test_helper'
 
 module Limiter
   class MixinTest < Minitest::Test
-    include FakeSleep
     include AssertElapsed
 
     COUNT = 50
@@ -29,6 +28,7 @@ module Limiter
 
     def setup
       super
+      RateQueue.any_instance.stubs(:clock).returns(FakeClock)
       @object = MixinTestClass.new
     end
 

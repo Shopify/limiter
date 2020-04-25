@@ -21,7 +21,7 @@ module Limiter
 
         sleep_until(time + @interval)
 
-        @ring[@head] = Clock.time
+        @ring[@head] = clock.time
         @head = (@head + 1) % @size
       end
 
@@ -31,9 +31,13 @@ module Limiter
     private
 
     def sleep_until(time)
-      interval = time - Clock.time
+      interval = time - clock.time
       return unless interval.positive?
-      sleep(interval)
+      clock.sleep(interval)
+    end
+
+    def clock
+      Clock
     end
   end
 end
