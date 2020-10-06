@@ -14,6 +14,7 @@ module Limiter
       extend Limiter::Mixin
 
       limit_method :tick, rate: RATE, interval: INTERVAL
+      limit_method :tick_with_kwargs, rate: RATE, interval: INTERVAL
 
       attr_reader :ticks
 
@@ -22,6 +23,10 @@ module Limiter
       end
 
       def tick(count = 1)
+        @ticks += count
+      end
+
+      def tick_with_kwargs(count: 1)
         @ticks += count
       end
     end
@@ -48,8 +53,13 @@ module Limiter
       assert_equal COUNT, @object.ticks
     end
 
-    def test_arguments_are_passed
+    def test_positional_arguments
       @object.tick 123
+      assert_equal 123, @object.ticks
+    end
+
+    def test_keyword_arguments
+      @object.tick_with_kwargs(count: 123)
       assert_equal 123, @object.ticks
     end
   end
