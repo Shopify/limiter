@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.0.0
+
+- end support for ruby 2.3/2.4/2.5
+- test on ruby 2.6/2.7/3.0 (using ruby 2.7 for development)
+
 ## v1.1.0
 
 - using Process.clock_gettime(Process::CLOCK_MONOTONIC) instead of Time.now for improved accuracy
