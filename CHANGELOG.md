@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.0.1
+
+- eliminate kwarg warning in ruby 2.7 (while still supporting 2.6)
+
 ## v2.0.0
 
 - end support for ruby 2.3/2.4/2.5

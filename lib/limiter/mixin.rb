@@ -6,9 +6,16 @@ module Limiter
       queue = RateQueue.new(rate, interval: interval)
 
       mixin = Module.new do
-        define_method(method) do |*args|
-          queue.shift
-          super(*args)
+        if RUBY_VERSION < "2.7"
+          define_method(method) do |*args|
+            queue.shift
+            super(*args)
+          end
+        else
+          define_method(method) do |*args, **kwargs|
+            queue.shift
+            super(*args, **kwargs)
+          end
         end
       end
 
