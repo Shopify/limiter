@@ -35,5 +35,14 @@ module Limiter
         threads.each(&:join)
       end
     end
+
+    def test_block_was_called_on_rate_limit
+      @block_hit = false
+      @queue = RateQueue.new(RATE, interval: INTERVAL) { @block_hit = true }
+      @queue.stubs(:clock).returns(FakeClock)
+      @queue.shift
+      @queue.shift
+      assert @block_hit
+    end
   end
 end

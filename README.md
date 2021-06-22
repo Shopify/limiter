@@ -46,7 +46,10 @@ class Widget
 
   # limit the rate we can call tick to 5 times per second
   # when the rate has been exceeded, a call to tick will block until the rate limit would not be exceeded
-  limit_method :tick, rate: 5, interval: 1
+  # and the provided block will be executed
+  limit_method(:tick, rate: 5, interval: 1) do
+    puts 'Limit reached'
+  end
 
   ...
 end
@@ -55,13 +58,16 @@ end
 ### Advanced Usage
 
 In cases where the mixin is not appropriate the `RateQueue` class can be used directly. As in the mixin examples above,
-the `interval` parameter is optional (and defaults to 1 minute).
+the `interval` parameter is optional (and defaults to 1 minute). It is also possible
+to provide the block to `RateQueue`, which will be executed on each limit hit (useful for metrics).
 
 ``` ruby
 class Widget
   def initialize
     # create a rate-limited queue which allows 10000 operations per hour
-    @queue = Limiter::RateQueue.new(10000, interval: 3600)
+    @queue = Limiter::RateQueue.new(10000, interval: 3600) do
+      puts "Hit the limit, waiting"
+    end
   end
 
   def tick

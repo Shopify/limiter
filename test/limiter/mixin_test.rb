@@ -70,5 +70,13 @@ module Limiter
       @object.tock(count: 321)
       assert_equal 321, @object.ticks
     end
+
+    def test_block_was_called_on_rate_limit
+      @block_hit = false
+      MixinTestClass.limit_method(:tick, rate: RATE, interval: INTERVAL) { @block_hit = true }
+      @object.tick
+      @object.tick
+      assert @block_hit
+    end
   end
 end

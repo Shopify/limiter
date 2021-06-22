@@ -4,13 +4,14 @@ module Limiter
   class RateQueue
     EPOCH = 0.0
 
-    def initialize(size, interval: 60)
+    def initialize(size, interval: 60, &blk)
       @size = size
       @interval = interval
 
       @ring = Array.new(size, EPOCH)
       @head = 0
       @mutex = Mutex.new
+      @blk = blk
     end
 
     def shift
@@ -33,6 +34,7 @@ module Limiter
     def sleep_until(time)
       interval = time - clock.time
       return unless interval.positive?
+      @blk.call if @blk
       clock.sleep(interval)
     end
 
