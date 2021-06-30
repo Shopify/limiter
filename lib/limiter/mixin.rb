@@ -2,8 +2,8 @@
 
 module Limiter
   module Mixin
-    def limit_method(method, rate:, interval: 60)
-      queue = RateQueue.new(rate, interval: interval)
+    def limit_method(method, rate:, interval: 60, balanced: false)
+      queue = RateQueue.new(rate, interval: interval, balanced: balanced)
 
       mixin = Module.new do
         if RUBY_VERSION < "2.7"

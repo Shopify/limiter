@@ -52,6 +52,27 @@ class Widget
 end
 ```
 
+#### Load balancing
+
+By default all calls to the `limit_method` will be bursted, e.g. as quick as possible, until the rate is exceeded.
+Then we wait for the remainder of the interval to continue. To even out the burst, an optional `balanced` parameter can be
+provided to enable interleaving between the method calls, e.g: `interleave = interval / size`.
+
+``` ruby
+  ...
+  limit_method :tick, rate: 60, balanced: true
+  ...
+```
+
+For example: with an interval of 60 seconds and a rate of 60:
+
+`balanced: false`
+: As quickly as possible we call the method 60 times, then we wait for the remainder of the time.
+
+`balanced: true`
+: We interleave each call with 1 second so we call this method every second.
+
+
 ### Advanced Usage
 
 In cases where the mixin is not appropriate the `RateQueue` class can be used directly. As in the mixin examples above,
