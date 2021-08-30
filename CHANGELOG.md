@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.1.0
+
+- add support to call a block when limiting takes place
+
 ## v2.0.1
 
 - eliminate kwarg warning in ruby 2.7 (while still supporting 2.6)
