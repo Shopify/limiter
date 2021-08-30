@@ -2,20 +2,13 @@
 
 module Limiter
   module Mixin
-    def limit_method(method, rate:, interval: 60)
-      queue = RateQueue.new(rate, interval: interval)
+    def limit_method(method, rate:, interval: 60, &b)
+      queue = RateQueue.new(rate, interval: interval, &b)
 
       mixin = Module.new do
-        if RUBY_VERSION < "2.7"
-          define_method(method) do |*args|
-            queue.shift
-            super(*args)
-          end
-        else
-          define_method(method) do |*args, **kwargs|
-            queue.shift
-            super(*args, **kwargs)
-          end
+        define_method(method) do |*args, **options, &blk|
+          queue.shift
+          options.empty? ? super(*args, &blk) : super(*args, **options, &blk)
         end
       end
 
