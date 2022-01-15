@@ -1,8 +1,8 @@
 # CHANGELOG
 
-## v2.2.1
+## v2.2.2
 
-- security update to rake 12.3.3 [CVE-2020-8130]
+- security update to rake 13.0.6 [CVE-2020-8130]
 
 ## v2.2.0
 
