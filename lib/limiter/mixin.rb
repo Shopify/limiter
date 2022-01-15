@@ -2,8 +2,8 @@
 
 module Limiter
   module Mixin
-    def limit_method(method, rate:, interval: 60, &b)
-      queue = RateQueue.new(rate, interval: interval, &b)
+    def limit_method(method, rate:, interval: 60, balanced: false, &b)
+      queue = RateQueue.new(rate, interval: interval, balanced: balanced, &b)
 
       mixin = Module.new do
         define_method(method) do |*args, **options, &blk|
