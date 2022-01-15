@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.2.0
+
+- adds support for "balancing" requests over time
+
 ## v2.1.0
 
 - add support to call a block when limiting takes place
