@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.2.1
+
+- security update to rake 12.3.3 [CVE-2020-8130]
+
 ## v2.2.0
 
 - adds support for "balancing" requests over time
