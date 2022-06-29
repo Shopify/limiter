@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Limiter
-  class RateQueue
-    EPOCH = 0.0
-
+  class RateQueue < BaseQueue
     def initialize(size, interval: 60, balanced: false, &blk)
       @size = size
       @interval = interval
@@ -30,17 +28,6 @@ module Limiter
     end
 
     private
-
-    def sleep_until(time)
-      interval = time - clock.time
-      return unless interval.positive?
-      @blk.call if @blk
-      clock.sleep(interval)
-    end
-
-    def clock
-      Clock
-    end
 
     def unbalanced_ring
       Array.new(@size, EPOCH)
