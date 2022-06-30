@@ -5,6 +5,7 @@ module Limiter
     def initialize(size, interval: 60, key: 'queue', &blk)
       @ring = Ring.new(size, key, EPOCH)
       @interval = interval
+      @blk = blk
     end
 
     def shift
