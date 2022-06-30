@@ -10,8 +10,8 @@ module Limiter
 
     private
 
-    def sleep_until(time)
-      interval = time - clock.time
+    def sleep_until(time, clock_time = Proc.new { clock.time })
+      interval = time - clock_time.call
       return unless interval.positive?
       @blk.call if @blk
       clock.sleep(interval)

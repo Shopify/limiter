@@ -33,7 +33,7 @@ module Limiter
 
     def setup
       super
-      RateQueue.any_instance.stubs(:clock).returns(FakeClock)
+      DistributedQueue.any_instance.stubs(:clock).returns(FakeClock)
       @object = MixinTestClass.new
     end
 
@@ -73,7 +73,7 @@ module Limiter
 
     def test_block_was_called_on_rate_limit
       @block_hit = false
-      MixinTestClass.limit_method(:tick, rate: RATE, interval: INTERVAL) { @block_hit = true }
+      MixinTestClass.limit_method(:tick, rate: RATE, interval: INTERVAL, distributed: false) { @block_hit = true }
       @object.tick
       @object.tick
       assert @block_hit

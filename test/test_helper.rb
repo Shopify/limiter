@@ -30,7 +30,7 @@ module Limiter
 
       completed_at = FakeClock.time
 
-      assert_in_delta started_at + interval, completed_at, 1.1
+      assert_in_delta started_at + interval, completed_at, 1.3
     end
   end
 end

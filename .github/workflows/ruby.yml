@@ -34,5 +34,9 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    
+    - name: Start Redis Server in GitHub Actions
+      uses: supercharge/redis-github-action@1.4.0
+
     - name: Run tests
       run: bundle exec rake test
