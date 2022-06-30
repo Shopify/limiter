@@ -6,7 +6,7 @@ require 'redlock'
 module Limiter
   class Ring
     def initialize(size, key, default)
-      @redis = Redis.current
+      @redis = Redis.new
       @redlock = Redlock::Client.new([@redis])
       @size = size
       @key = key
@@ -70,11 +70,11 @@ module Limiter
       def initialize_ring
         return unless @redis.llen(ring_key).zero?
 
-        @redis.pipelined do
+        @redis.pipelined do |pipeline|
           1.upto(@size) do
-            @redis.lpush(ring_key, @default)
+            pipeline.lpush(ring_key, @default)
           end
-          @redis.set(head_key, 0)
+          pipeline.set(head_key, 0)
         end
       end
 
