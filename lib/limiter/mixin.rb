@@ -2,7 +2,7 @@
 
 module Limiter
   module Mixin
-    def limit_method(method, rate:, interval: 60, balanced: false, distributed: false, &b)
+    def limit_method(method, rate:, interval: 60, balanced: false, distributed: true, &b)
       queue = if !distributed
                 RateQueue.new(rate, interval: interval, balanced: balanced, &b)
               else
