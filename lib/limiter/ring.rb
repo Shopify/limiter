@@ -11,8 +11,6 @@ module Limiter
       @size = size
       @key = key
       @default = default
-
-      initialize_ring
     end
 
     def head
@@ -33,6 +31,8 @@ module Limiter
     end
 
     def lock
+      initialize_ring
+
       completed = false
       timeout_time = monotonic_time + 2000
       while !completed && (monotonic_time < timeout_time)
@@ -51,35 +51,40 @@ module Limiter
 
     private
 
-      def head_key
-        @head_key ||= key_for(:head)
-      end
+    def head_key
+      @head_key ||= key_for(:head)
+    end
 
-      def ring_key
-        @ring_key ||= key_for(:ring)
-      end
+    def ring_key
+      @ring_key ||= key_for(:ring)
+    end
 
-      def lock_key
-        @lock_key ||= key_for(:lock)
-      end
+    def lock_key
+      @lock_key ||= key_for(:lock)
+    end
 
-      def key_for(thing)
-        ['rate', @key, thing].join(':')
-      end
+    def key_for(thing)
+      ['rate', @key, thing].join(':')
+    end
 
-      def initialize_ring
-        return unless @redis.llen(ring_key).zero?
+    def initialize_ring
+      return if @already_initialized
 
-        @redis.pipelined do |pipeline|
-          1.upto(@size) do
-            pipeline.lpush(ring_key, @default)
-          end
-          pipeline.set(head_key, 0)
+      return unless @redis.llen(ring_key).zero?
+
+      # Make sure we only try doing this once
+      @already_initialized = true
+
+      @redis.pipelined do |pipeline|
+        1.upto(@size) do
+          pipeline.lpush(ring_key, @default)
         end
+        pipeline.set(head_key, 0)
       end
+    end
 
-      def monotonic_time
-        Process.clock_gettime(Process::CLOCK_MONOTONIC)
-      end
+    def monotonic_time
+      Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    end
   end
 end

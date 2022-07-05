@@ -1,4 +1,12 @@
 # CHANGELOG
+​
+## v3.0.1
+​
+- Stop calling Redis on initialization
+
+## v3.0.0
+
+- Add support to redis-based queues for distributed systems
 
 ## v2.2.2
 
