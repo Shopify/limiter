@@ -35,7 +35,6 @@ module Limiter
       interval = time - clock.time
       return unless interval.positive?
       @blk.call if @blk
-      clock.sleep(interval)
     end
 
     def clock
