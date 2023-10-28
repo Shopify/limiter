@@ -8,3 +8,4 @@ up:
 
 commands:
   test: bin/rake test
+  style: bin/rubocop -a
