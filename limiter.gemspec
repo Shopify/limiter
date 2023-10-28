@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = %w(lib)
+  spec.require_paths = ["lib"]
 
   spec.add_development_dependency("bundler")
   spec.add_development_dependency("code-scanning-rubocop", "~> 0.6.1")
