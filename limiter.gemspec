@@ -33,5 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest-focus', '~> 1.4'
   spec.add_development_dependency 'mocha', '~> 2.1'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rubocop', '~> 0.56'
+  spec.add_development_dependency 'rubocop', '~> 1.57'
+  spec.add_development_dependency 'code-scanning-rubocop', '~> 0.6.1'
+  spec.add_development_dependency 'rubocop-shopify', '~> 2.14'
 end
