@@ -10,6 +10,7 @@ require 'mocha/minitest'
 module Limiter
   class FakeClock < Clock
     def initialize
+      super
       @offset = 0
     end
 

@@ -7,12 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Configuration parameters: AllowedParentClasses.
-Lint/MissingSuper:
-  Exclude:
-    - 'test/test_helper.rb'
-
-# Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Minitest/AssertOperator:
   Exclude:
