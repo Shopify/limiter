@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.3.0
+
+- add support for resetting RateQueue
+- add support for resetting mixin-limited method
+
 ## v2.2.2
 
 - security update to rake 13.0.6 [CVE-2020-8130]
