@@ -58,6 +58,32 @@ module Limiter
       end
     end
 
+    def test_method_is_rate_limited_across_instances
+      assert_elapsed(COUNT.to_f / RATE - 1) do
+        COUNT.times do
+          MixinTestClass.new.tick
+        end
+      end
+    end
+
+    def test_method_is_not_rate_limited
+      assert_elapsed(0) do
+        COUNT.times do
+          @object.tick
+          MixinTestClass.reset_tick_limit!
+        end
+      end
+    end
+
+    def test_method_is_not_rate_limited_across_instances
+      assert_elapsed(0) do
+        COUNT.times do
+          MixinTestClass.new.tick
+          MixinTestClass.reset_tick_limit!
+        end
+      end
+    end
+
     def test_original_method_is_called
       COUNT.times do
         @object.tick

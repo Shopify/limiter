@@ -12,6 +12,10 @@ module Limiter
         end
       end
 
+      define_singleton_method("reset_#{method}_limit!") do
+        queue.reset
+      end
+
       prepend mixin
     end
   end
