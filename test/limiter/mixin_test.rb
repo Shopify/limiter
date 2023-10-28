@@ -94,6 +94,7 @@ module Limiter
 
     def test_arguments_are_passed
       @object.tick 123
+
       assert_equal 123, @object.ticks
     end
 
@@ -107,6 +108,7 @@ module Limiter
 
     def test_keyword_arguments_are_passed
       @object.tock(count: 321)
+
       assert_equal 321, @object.ticks
     end
 
