@@ -10,7 +10,7 @@ module Limiter
     end
 
     def test_clock_is_advancing
-      assert Clock.time > @start_time
+      assert_operator Clock.time, :>, @start_time
     end
   end
 end
