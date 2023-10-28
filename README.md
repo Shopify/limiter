@@ -75,6 +75,23 @@ For example: with an interval of 60 seconds and a rate of 60:
 `balanced: true`
 : We interleave each call with 1 second so we call this method every second.
 
+#### Resetting a rate-limited method
+
+There are times when it may be necessary to reset the rate limiter for a method, for example during testing.
+
+This can be done by calling `reset_method_limit!` on the class, where "method" is replaced with the name of the method being limited.
+
+Given the example above, the following would reset the rate limit for the `tick` method during test setup:
+
+``` ruby
+class WidgetTest < Minitest::Test
+  def setup
+    Widget.reset_tick_limit!
+  end
+
+  ...
+end
+```
 
 ### Advanced Usage
 
@@ -97,6 +114,18 @@ class Widget
     # do something
   end
 end
+```
+
+#### Resetting a RateQueue
+
+In some circumstances it may be desirable to reset a rate queue, for example after invoking an API that resets an external rate limit.
+
+This can be done by calling `reset` on the queue.
+
+``` ruby
+  ...
+  @queue.reset
+  ...
 ```
 
 ## Development
