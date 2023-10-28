@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
-require 'limiter'
+$LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
+require "limiter"
 
-require 'minitest/autorun'
-require 'minitest/focus'
-require 'mocha/minitest'
+require "minitest/autorun"
+require "minitest/focus"
+require "mocha/minitest"
 
 module Limiter
   class FakeClock < Clock

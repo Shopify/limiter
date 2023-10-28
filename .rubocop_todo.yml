@@ -6,25 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 50
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'Gemfile'
-    - 'bin/console'
-    - 'lib/limiter.rb'
-    - 'lib/limiter/clock.rb'
-    - 'lib/limiter/version.rb'
-    - 'lib/ruby-limiter.rb'
-    - 'limiter.gemspec'
-    - 'test/limiter/clock_test.rb'
-    - 'test/limiter/mixin_test.rb'
-    - 'test/limiter/rate_queue_test.rb'
-    - 'test/limiter_test.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, AllowedMethods.
