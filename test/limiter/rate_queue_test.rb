@@ -52,7 +52,7 @@ module Limiter
       @queue.shift
       @queue.shift
 
-      assert @block_hit
+      assert(@block_hit)
     end
 
     def test_shift_is_unbalanced_by_default

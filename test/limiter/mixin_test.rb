@@ -91,13 +91,13 @@ module Limiter
         @object.tick
       end
 
-      assert_equal COUNT, @object.ticks
+      assert_equal(COUNT, @object.ticks)
     end
 
     def test_arguments_are_passed
-      @object.tick 123
+      @object.tick(123)
 
-      assert_equal 123, @object.ticks
+      assert_equal(123, @object.ticks)
     end
 
     def test_default_keyword_arguments_are_passed
@@ -105,13 +105,13 @@ module Limiter
         @object.tock
       end
 
-      assert_equal COUNT, @object.ticks
+      assert_equal(COUNT, @object.ticks)
     end
 
     def test_keyword_arguments_are_passed
       @object.tock(count: 321)
 
-      assert_equal 321, @object.ticks
+      assert_equal(321, @object.ticks)
     end
 
     def test_block_was_called_on_rate_limit
