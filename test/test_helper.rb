@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
-require 'limiter'
+$LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
+require "limiter"
 
-require 'minitest/autorun'
-require 'minitest/focus'
-require 'mocha/minitest'
+require "minitest/autorun"
+require "minitest/focus"
+require "mocha/minitest"
 
 module Limiter
   class FakeClock < Clock
     def initialize
+      super
       @offset = 0
     end
 
@@ -30,7 +31,7 @@ module Limiter
 
       completed_at = FakeClock.time
 
-      assert_in_delta started_at + interval, completed_at, 1.1
+      assert_in_delta(started_at + interval, completed_at, 1.1)
     end
   end
 end

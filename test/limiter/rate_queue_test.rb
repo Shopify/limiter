@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module Limiter
   class RateQueueTest < Minitest::Test
@@ -51,11 +51,13 @@ module Limiter
       @queue.stubs(:clock).returns(FakeClock)
       @queue.shift
       @queue.shift
-      assert @block_hit
+
+      assert(@block_hit)
     end
 
     def test_shift_is_unbalanced_by_default
       actual = @queue.instance_variable_get(:@ring)
+
       actual.size.times.with_index do |idx|
         assert_in_delta(actual[idx], 0.0)
       end
@@ -71,6 +73,7 @@ module Limiter
         Clock.time - 1,
       ]
       actual = subject.instance_variable_get(:@ring)
+
       actual.size.times.with_index do |idx|
         assert_in_delta(actual[idx], expected[idx])
       end

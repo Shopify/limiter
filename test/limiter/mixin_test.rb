@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module Limiter
   class MixinTest < Minitest::Test
@@ -15,8 +15,8 @@ module Limiter
 
       @limited = 0
 
-      def self.limited
-        @limited
+      class << self
+        attr_reader :limited
       end
 
       limit_method :tick, rate: RATE, interval: INTERVAL
@@ -89,12 +89,13 @@ module Limiter
         @object.tick
       end
 
-      assert_equal COUNT, @object.ticks
+      assert_equal(COUNT, @object.ticks)
     end
 
     def test_arguments_are_passed
-      @object.tick 123
-      assert_equal 123, @object.ticks
+      @object.tick(123)
+
+      assert_equal(123, @object.ticks)
     end
 
     def test_default_keyword_arguments_are_passed
@@ -102,12 +103,13 @@ module Limiter
         @object.tock
       end
 
-      assert_equal COUNT, @object.ticks
+      assert_equal(COUNT, @object.ticks)
     end
 
     def test_keyword_arguments_are_passed
       @object.tock(count: 321)
-      assert_equal 321, @object.ticks
+
+      assert_equal(321, @object.ticks)
     end
 
     def test_block_was_called_on_rate_limit

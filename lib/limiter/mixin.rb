@@ -16,7 +16,7 @@ module Limiter
         queue.reset
       end
 
-      prepend mixin
+      prepend(mixin)
     end
   end
 end

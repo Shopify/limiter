@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 inherit_gem:
   rubocop-shopify: rubocop.yml
 
@@ -10,3 +8,7 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
+
+Naming/FileName:
+  Exclude:
+    - 'lib/ruby-limiter.rb'

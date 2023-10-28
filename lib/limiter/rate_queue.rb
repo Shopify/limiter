@@ -43,7 +43,8 @@ module Limiter
     def sleep_until(time)
       interval = time - clock.time
       return unless interval.positive?
-      @blk.call if @blk
+
+      @blk&.call
       clock.sleep(interval)
     end
 
