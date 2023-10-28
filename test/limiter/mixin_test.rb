@@ -13,8 +13,17 @@ module Limiter
     class MixinTestClass
       extend Limiter::Mixin
 
+      @limited = 0
+
+      def self.limited
+        @limited
+      end
+
       limit_method :tick, rate: RATE, interval: INTERVAL
       limit_method :tock, rate: RATE, interval: INTERVAL
+      limit_method :ticktock, rate: RATE, interval: INTERVAL do
+        @limited += 1
+      end
 
       attr_reader :ticks
 
@@ -28,6 +37,10 @@ module Limiter
 
       def tock(count: 1)
         @ticks += count
+      end
+
+      def ticktock
+        @ticks += 2
       end
     end
 
@@ -72,11 +85,11 @@ module Limiter
     end
 
     def test_block_was_called_on_rate_limit
-      @block_hit = false
-      MixinTestClass.limit_method(:tick, rate: RATE, interval: INTERVAL) { @block_hit = true }
-      @object.tick
-      @object.tick
-      assert @block_hit
+      @object.ticktock
+      @object.ticktock
+      @object.ticktock
+
+      assert_equal(2, @object.class.limited)
     end
   end
 end
