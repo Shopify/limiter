@@ -36,6 +36,15 @@ module Limiter
       end
     end
 
+    def test_shift_is_not_rate_limited
+      assert_elapsed(0) do
+        COUNT.times do
+          @queue.shift
+          @queue.reset
+        end
+      end
+    end
+
     def test_block_was_called_on_rate_limit
       @block_hit = false
       @queue = RateQueue.new(RATE, interval: INTERVAL) { @block_hit = true }

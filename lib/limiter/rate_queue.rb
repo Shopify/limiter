@@ -8,10 +8,19 @@ module Limiter
       @size = size
       @interval = interval
 
-      @ring = balanced ? balanced_ring : unbalanced_ring
-      @head = 0
+      @balanced = balanced
+
       @mutex = Mutex.new
       @blk = blk
+
+      reset
+    end
+
+    def reset
+      @mutex.synchronize do
+        @ring = @balanced ? balanced_ring : unbalanced_ring
+        @head = 0
+      end
     end
 
     def shift
