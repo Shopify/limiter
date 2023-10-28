@@ -1,4 +1,4 @@
-# Limiter [![Build Status](https://github.com/Shopify/limiter/actions/workflows/ruby.yml/badge.svg?branch=main)](https://github.com/Shopify/limiter/actions/workflows/ruby.yml)
+# Limiter [![Build Status](https://github.com/Shopify/limiter/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/limiter/actions/workflows/ci.yml)
 
 This gem implements a simple mechanism to throttle or rate-limit operations in Ruby.
 
