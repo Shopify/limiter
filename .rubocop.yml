@@ -10,3 +10,7 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
+
+Naming/FileName:
+  Exclude:
+    - 'lib/ruby-limiter.rb'
