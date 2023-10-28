@@ -15,8 +15,10 @@ module Limiter
 
       @limited = 0
 
-      def self.limited
-        @limited
+      class << self
+        def limited
+          @limited
+        end
       end
 
       limit_method :tick, rate: RATE, interval: INTERVAL

@@ -8,14 +8,6 @@
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: def_self, self_class
-Style/ClassMethodsDefinitions:
-  Exclude:
-    - 'test/limiter/mixin_test.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, AllowInnerBackticks.
 # SupportedStyles: backticks, percent_x, mixed
 Style/CommandLiteral:
