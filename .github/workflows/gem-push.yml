@@ -1,8 +1,8 @@
 name: Ruby Gem
 
 on:
-  pull_request:
-    branches: [ "main" ]
+  push:
+    tags: [ "v*" ]
 
 jobs:
   build:
