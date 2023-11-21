@@ -57,8 +57,8 @@ end
 
 #### Load balancing
 
-By default all calls to the `limit_method` will be bursted, e.g. as quick as possible, until the rate is exceeded.
-Then we wait for the remainder of the interval to continue. To even out the burst, an optional `balanced` parameter can be
+By default all calls to the `limit_method` will be bursted, e.g. as quick as possible, until the rate is exceeded. Then
+we wait for the remainder of the interval to continue. To even out the burst, an optional `balanced` parameter can be
 provided to enable interleaving between the method calls, e.g: `interleave = interval / size`.
 
 ``` ruby
@@ -79,7 +79,8 @@ For example: with an interval of 60 seconds and a rate of 60:
 
 There are times when it may be necessary to reset the rate limiter for a method, for example during testing.
 
-This can be done by calling `reset_method_limit!` on the class, where "method" is replaced with the name of the method being limited.
+This can be done by calling `reset_method_limit!` on the class, where "method" is replaced with the name of the method
+being limited.
 
 Given the example above, the following would reset the rate limit for the `tick` method during test setup:
 
@@ -96,8 +97,8 @@ end
 ### Advanced Usage
 
 In cases where the mixin is not appropriate the `RateQueue` class can be used directly. As in the mixin examples above,
-the `interval` parameter is optional (and defaults to 1 minute). It is also possible
-to provide the block to `RateQueue`, which will be executed on each limit hit (useful for metrics).
+the `interval` parameter is optional (and defaults to 1 minute). It is also possible to provide the block to
+`RateQueue`, which will be executed on each limit hit (useful for metrics).
 
 ``` ruby
 class Widget
@@ -118,7 +119,8 @@ end
 
 #### Resetting a RateQueue
 
-In some circumstances it may be desirable to reset a rate queue, for example after invoking an API that resets an external rate limit.
+In some circumstances it may be desirable to reset a rate queue, for example after invoking an API that resets an
+external rate limit.
 
 This can be done by calling `reset` on the queue.
 
@@ -130,9 +132,12 @@ This can be done by calling `reset` on the queue.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can
+also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the
+version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version,
+push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
