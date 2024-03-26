@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Simple Ruby rate limiting mechanism."
   spec.homepage      = "https://github.com/Shopify/limiter"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   if spec.respond_to?(:metadata)
     spec.metadata["allowed_push_host"] = "https://rubygems.org"

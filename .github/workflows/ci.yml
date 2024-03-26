@@ -30,7 +30,6 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Rubocop run
       run: |
@@ -48,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.0', '3.1', '3.2']
+        ruby-version: ['3.0', '3.1', '3.2', '3.3']
 
     steps:
     - uses: actions/checkout@v3
