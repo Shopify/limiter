@@ -11,7 +11,7 @@ GEM
       rubocop (~> 1.0)
     json (2.7.1)
     language_server-protocol (3.17.0.3)
-    minitest (5.22.3)
+    minitest (5.25.5)
     minitest-focus (1.4.0)
       minitest (>= 4, < 6)
     mocha (2.1.0)
@@ -22,7 +22,7 @@ GEM
       racc
     racc (1.7.3)
     rainbow (3.1.1)
-    rake (13.1.0)
+    rake (13.3.0)
     regexp_parser (2.9.0)
     rexml (3.2.8)
       strscan (>= 3.0.9)
@@ -68,4 +68,4 @@ DEPENDENCIES
   ruby-limiter!
 
 BUNDLED WITH
-   2.5.3
+   2.6.9
