@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-limiter (2.3.0)
+    ruby-limiter (2.3.1)
 
 GEM
   remote: https://rubygems.org/
