@@ -43,13 +43,6 @@ module Limiter
 
     private
 
-    # Integer for Integer-valued numerics (3, 3.0, 3r), nil otherwise
-    def whole_number(value)
-      return unless value.is_a?(Numeric) && value.real? && value.finite?
-
-      value.to_i if value == value.to_i
-    end
-
     def sleep_until(time)
       interval = time - clock.time
       return unless interval.positive?
@@ -76,6 +69,13 @@ module Limiter
 
     def base_time
       clock.time - @interval
+    end
+
+    # Integer for Integer-valued numerics (3, 3.0, 3r), nil otherwise
+    def whole_number(value)
+      return unless value.is_a?(Numeric) && value.real? && value.finite?
+
+      value.to_i if value == value.to_i
     end
   end
 end
