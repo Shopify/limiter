@@ -90,5 +90,21 @@ module Limiter
         assert_in_delta(actual[idx], expected[idx])
       end
     end
+
+    def test_shift_is_balanced_after_idle
+      subject = RateQueue.new(3, interval: 3, balanced: true)
+      subject.stubs(:clock).returns(FakeClock)
+
+      FakeClock.sleep(10)
+
+      times = Array.new(6) do
+        subject.shift
+        FakeClock.time
+      end
+
+      times.each_cons(2) do |previous, current|
+        assert_in_delta(1.0, current - previous, 0.1)
+      end
+    end
   end
 end
