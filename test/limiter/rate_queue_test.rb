@@ -109,7 +109,7 @@ module Limiter
       end
     end
 
-    def test_shift_is_not_balanced_after_reset
+    def test_reset_clears_balanced_spacing
       subject = RateQueue.new(3, interval: 3, balanced: true)
       subject.stubs(:clock).returns(FakeClock)
 
