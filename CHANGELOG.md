@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.3.1
+
+- balanced mode now keeps calls `interval / size` apart after the queue has been idle; previously an idle interval let `size` calls through at once and the queue kept bursting until reset (#61)
+- balanced ring is built from a single clock read (#62)
+
 ## v2.3.0
 
 - add support for resetting RateQueue
