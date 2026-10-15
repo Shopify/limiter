@@ -42,10 +42,10 @@ module Limiter
     private
 
     def next_time(time)
-      next_time = time + @interval
-      return next_time unless @balanced && @last
+      deadline = time + @interval
+      return deadline unless @balanced && @last
 
-      [next_time, @last + gap].max
+      [deadline, @last + gap].max
     end
 
     def sleep_until(time)
