@@ -5,6 +5,8 @@ module Limiter
     EPOCH = 0.0
 
     def initialize(size, interval: 60, balanced: false, &blk)
+      raise ArgumentError, "size must be a positive Integer" unless size.is_a?(Integer) && size.positive?
+
       @size = size
       @interval = interval
 
