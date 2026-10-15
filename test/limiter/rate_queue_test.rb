@@ -78,5 +78,14 @@ module Limiter
         assert_in_delta(actual[idx], expected[idx])
       end
     end
+
+    def test_balanced_ring_is_evenly_spaced
+      subject = RateQueue.new(500, interval: 1, balanced: true)
+      ring = subject.instance_variable_get(:@ring)
+
+      ring.each_cons(2) do |previous, current|
+        assert_in_delta(0.002, current - previous, 1e-9)
+      end
+    end
   end
 end

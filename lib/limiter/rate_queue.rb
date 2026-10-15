@@ -57,7 +57,10 @@ module Limiter
     end
 
     def balanced_ring
-      (0...@size).map { |i| base_time + (gap * i) }
+      start = base_time
+      step = gap
+
+      Array.new(@size) { |i| start + (step * i) }
     end
 
     def gap
