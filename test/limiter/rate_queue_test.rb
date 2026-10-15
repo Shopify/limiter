@@ -55,6 +55,18 @@ module Limiter
       assert(@block_hit)
     end
 
+    def test_balanced_ring_reads_the_clock_once
+      # a clock that advances one second on every read exposes any per-slot reads
+      Clock.stubs(:time).returns(*Array.new(100) { |i| 1000.0 + i })
+
+      subject = RateQueue.new(50, interval: 1, balanced: true)
+      ring = subject.instance_variable_get(:@ring)
+
+      ring.each_cons(2) do |previous, current|
+        assert_in_delta(0.02, current - previous, 1e-9)
+      end
+    end
+
     def test_shift_is_unbalanced_by_default
       actual = @queue.instance_variable_get(:@ring)
 
@@ -76,15 +88,6 @@ module Limiter
 
       actual.size.times.with_index do |idx|
         assert_in_delta(actual[idx], expected[idx])
-      end
-    end
-
-    def test_balanced_ring_is_evenly_spaced
-      subject = RateQueue.new(500, interval: 1, balanced: true)
-      ring = subject.instance_variable_get(:@ring)
-
-      ring.each_cons(2) do |previous, current|
-        assert_in_delta(0.002, current - previous, 1e-9)
       end
     end
   end
