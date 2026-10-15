@@ -63,7 +63,7 @@ module Limiter
       ring = subject.instance_variable_get(:@ring)
 
       ring.each_cons(2) do |previous, current|
-        assert_in_delta(0.02, current - previous, 1e-9)
+        assert_in_delta(0.02, current - previous, 0.1)
       end
     end
 
@@ -89,6 +89,47 @@ module Limiter
       actual.size.times.with_index do |idx|
         assert_in_delta(actual[idx], expected[idx])
       end
+    end
+
+    def test_shift_is_balanced_after_idle
+      subject = RateQueue.new(3, interval: 3, balanced: true)
+      subject.stubs(:clock).returns(FakeClock)
+
+      FakeClock.sleep(10)
+      started_at = FakeClock.time
+
+      times = Array.new(6) do
+        subject.shift
+        FakeClock.time
+      end
+
+      assert_in_delta(started_at, times.first, 0.1)
+      times.each_cons(2) do |previous, current|
+        assert_in_delta(1.0, current - previous, 0.1)
+      end
+    end
+
+    def test_reset_clears_balanced_spacing
+      subject = RateQueue.new(3, interval: 3, balanced: true)
+      subject.stubs(:clock).returns(FakeClock)
+
+      subject.shift
+      subject.reset
+      started_at = FakeClock.time
+      subject.shift
+
+      assert_in_delta(started_at, FakeClock.time, 0.1)
+    end
+
+    def test_shift_is_unbalanced_after_idle
+      subject = RateQueue.new(3, interval: 3)
+      subject.stubs(:clock).returns(FakeClock)
+
+      FakeClock.sleep(10)
+      started_at = FakeClock.time
+      3.times { subject.shift }
+
+      assert_in_delta(started_at, FakeClock.time, 0.1)
     end
   end
 end

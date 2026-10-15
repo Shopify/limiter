@@ -20,6 +20,7 @@ module Limiter
       @mutex.synchronize do
         @ring = @balanced ? balanced_ring : unbalanced_ring
         @head = 0
+        @last = nil
       end
     end
 
@@ -29,9 +30,9 @@ module Limiter
       @mutex.synchronize do
         time = @ring[@head]
 
-        sleep_until(time + @interval)
+        sleep_until(next_time(time))
 
-        @ring[@head] = clock.time
+        @last = @ring[@head] = clock.time
         @head = (@head + 1) % @size
       end
 
@@ -39,6 +40,13 @@ module Limiter
     end
 
     private
+
+    def next_time(time)
+      deadline = time + @interval
+      return deadline unless @balanced && @last
+
+      [deadline, @last + gap].max
+    end
 
     def sleep_until(time)
       interval = time - clock.time
