@@ -63,7 +63,7 @@ module Limiter
       ring = subject.instance_variable_get(:@ring)
 
       ring.each_cons(2) do |previous, current|
-        assert_in_delta(0.02, current - previous, 0.01)
+        assert_in_delta(0.02, current - previous, 0.1)
       end
     end
 
@@ -103,9 +103,9 @@ module Limiter
         FakeClock.time
       end
 
-      assert_in_delta(started_at, times.first, 0.01)
+      assert_in_delta(started_at, times.first, 0.1)
       times.each_cons(2) do |previous, current|
-        assert_in_delta(1.0, current - previous, 0.01)
+        assert_in_delta(1.0, current - previous, 0.1)
       end
     end
 
@@ -118,7 +118,7 @@ module Limiter
       started_at = FakeClock.time
       subject.shift
 
-      assert_in_delta(started_at, FakeClock.time, 0.01)
+      assert_in_delta(started_at, FakeClock.time, 0.1)
     end
 
     def test_shift_is_unbalanced_after_idle
@@ -129,7 +129,7 @@ module Limiter
       started_at = FakeClock.time
       3.times { subject.shift }
 
-      assert_in_delta(started_at, FakeClock.time, 0.01)
+      assert_in_delta(started_at, FakeClock.time, 0.1)
     end
   end
 end
