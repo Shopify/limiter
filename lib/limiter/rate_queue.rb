@@ -5,7 +5,8 @@ module Limiter
     EPOCH = 0.0
 
     def initialize(size, interval: 60, balanced: false, &blk)
-      raise ArgumentError, "size must be a positive Integer" unless size.is_a?(Integer) && size.positive?
+      size = whole_number(size)
+      raise ArgumentError, "size must be a positive whole number" unless size&.positive?
 
       @size = size
       @interval = interval
@@ -41,6 +42,13 @@ module Limiter
     end
 
     private
+
+    # Integer for Integer-valued numerics (3, 3.0, 3r), nil otherwise
+    def whole_number(value)
+      return unless value.is_a?(Numeric) && value.real? && value.finite?
+
+      value.to_i if value == value.to_i
+    end
 
     def sleep_until(time)
       interval = time - clock.time

@@ -16,12 +16,20 @@ module Limiter
       @queue.stubs(:clock).returns(FakeClock)
     end
 
-    def test_size_must_be_a_positive_integer
-      [0, -1, 2.5, nil, "3"].each do |size|
+    def test_size_must_be_a_positive_whole_number
+      [0, -1, 2.5, 0.0, Float::INFINITY, Float::NAN, nil, "3"].each do |size|
         error = assert_raises(ArgumentError, "size #{size.inspect}") { RateQueue.new(size) }
 
-        assert_equal("size must be a positive Integer", error.message)
+        assert_equal("size must be a positive whole number", error.message)
       end
+    end
+
+    def test_size_accepts_whole_number_floats
+      subject = RateQueue.new(3.0, interval: 3)
+      size = subject.instance_variable_get(:@size)
+
+      assert_instance_of(Integer, size)
+      assert_equal(3, size)
     end
 
     def test_shift_is_rate_limited
